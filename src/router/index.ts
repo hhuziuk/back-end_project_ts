@@ -1,5 +1,7 @@
 import express from 'express';
 import userController from "../controllers/user-controller";
+
+import {User} from "../entities/user.entity";
 const router = express.Router();
 
 router.post('/registration', userController.registration)
@@ -9,4 +11,4 @@ router.get('/activate/:link', userController.activate)
 router.get('/refresh', userController.refresh)
 router.get('/users', userController.getUsers)
 
-export default router;
+export default router

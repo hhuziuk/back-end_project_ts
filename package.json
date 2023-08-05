@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
@@ -45,6 +46,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/nanoid": "^3.0.0",
     "@types/node": "^20.4.1",
+    "@types/nodemailer": "^6.4.9",
     "@types/pino": "^7.0.5",
     "@types/response-time": "^2.3.5",
     "@types/swagger-jsdoc": "^6.0.1",

@@ -5,6 +5,7 @@ import logger from './utils/logger'
 import {PostgresDataSource} from './utils/connect'
 import cookieParser from "cookie-parser";
 import router from './router/index'
+import errorMiddleware from "./middleware/error-middleware";
 
 const PORT = process.env.PORT || 3006;
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 app.use('/api', router)
+app.use(errorMiddleware)
 const start = async() => {
     try{
         await PostgresDataSource.initialize()

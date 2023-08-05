@@ -1,10 +1,8 @@
 import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 import {
     IsEmail,
-    Max,
-    Min,
-    IsBoolean,
-    IsString
+    MaxLength,
+    MinLength
 } from "class-validator"
 
 
@@ -14,28 +12,31 @@ export class User {
     id: string;
 
     @Column({nullable: false, unique: true})
-    @IsString()
-    @Min(0)
-    @Max(20)
+    @MinLength(1, {
+        message: 'username is too short',
+    })
+    @MaxLength(15, {
+        message: 'username is too long',
+    })
     username: string;
 
     @Column({nullable: false})
-    @IsString()
-    @Min(8, {message: "password is too short"})
-    @Max(32, {message: "password is too long"})
+    @MinLength(4, {
+        message: 'password is too short',
+    })
+    @MaxLength(15, {
+        message: 'password is too long',
+    })
     password: string;
 
     @Column({nullable: false, unique: true})
-    @IsString()
     @IsEmail()
     email: string;
 
     @Column({ default: false })
-    @IsBoolean()
     isActivated: boolean;
 
     @Column()
-    @IsString()
     activationLink: string;
 
 }
