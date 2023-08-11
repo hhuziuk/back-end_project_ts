@@ -1,3 +1,4 @@
 #in our .gitignore file
 .env
-/build
+build
+node_modules
