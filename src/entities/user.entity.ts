@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, ObjectType} from "typeorm";
 import {
     IsEmail,
     MaxLength,
@@ -39,4 +39,6 @@ export class User {
     @Column()
     public activationLink: string;
 
+    @Column({nullable: false})
+    public role: string;
 }

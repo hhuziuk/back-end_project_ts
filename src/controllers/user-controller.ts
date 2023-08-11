@@ -8,13 +8,13 @@ import {plainToClass} from "class-transformer";
 class UserController{
     async registration(req: Request, res: Response, next: NextFunction){
         try{
-            const {email, username, password} = req.body
-            const user = plainToClass(User, { email, username, password });
+            const {email, username, password, role} = req.body
+            const user = plainToClass(User, { email, username, password , role})
             const errors = await validate(user)
             if (errors.length > 0) {
                 return next(ApiError.BadRequest('validation error', errors))
             }
-            const userData = await UserService.registration(email, username, password)
+            const userData = await UserService.registration(email, username, password, role)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e){
@@ -38,9 +38,12 @@ class UserController{
     }
     async logout(req: Request, res: Response, next: NextFunction){
         try{
-
+            const {refreshToken} = req.cookies;
+            const userData = UserService.logout(refreshToken)
+            res.clearCookie('userData')
+            return res.json(userData)
         } catch(e){
-            next(e);
+            next(e)
         }
     }
     async activate(req: Request, res: Response, next: NextFunction){
@@ -54,16 +57,18 @@ class UserController{
     }
     async refresh(req: Request, res: Response, next: NextFunction){
         try{
-            const {refreshToken} = req.cookies;
-            const token = UserService.logout(refreshToken)
-            return res.json(token)
+            const {refreshToken} = req.cookies
+            const userData = await UserService.refresh(refreshToken)
+            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            return res.json(userData)
         } catch(e){
-            next(e)
+            next(e);
         }
     }
     async getUsers(req: Request, res: Response, next: NextFunction){
         try{
-
+            const users = await userService.getUsers();
+            return res.json(users);
         } catch(e){
             next(e);
         }

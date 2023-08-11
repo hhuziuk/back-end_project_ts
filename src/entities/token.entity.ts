@@ -3,13 +3,13 @@ import {User} from "./user.entity"
 
 @Entity('Token')
 export class Token {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+    @PrimaryGeneratedColumn()
+    public id: number;
 
     @OneToOne(() => User)
     @JoinColumn()
-    user: User;
+    public user: User;
 
     @Column({nullable: false})
-    refreshToken: string;
+    public refreshToken: string;
 }

@@ -31,9 +31,3 @@ class MailService{
 }
 
 export default new MailService()
-
-
-// , (err: Error, info: String) => {
-//     logger.error(err);
-//     logger.info(info)
-// }
