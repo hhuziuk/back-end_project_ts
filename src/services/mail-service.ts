@@ -26,7 +26,7 @@ class MailService{
                     <h1>follow the link to activate your account</h1>
                     <a href="${link}">${link}</a>
                     </div>`
-        })
+        });
     }
 }
 
