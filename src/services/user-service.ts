@@ -51,8 +51,7 @@ class UserService {
         if (!user) {
             throw ApiError.BadRequest("User with this email does not exist")
         }
-        //logger.info('222: no'+user.password+'@@@@'+password)
-        let comparePassword = await bcrypt.compare(password, user.password)
+        const comparePassword = await bcrypt.compare(password, user.password)
         if (!comparePassword) {
             throw ApiError.BadRequest("Wrong password")
         }

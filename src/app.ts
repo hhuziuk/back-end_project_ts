@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config()
 import express from "express"
 import cors from 'cors'
 import logger from './utils/logger'
@@ -25,4 +26,4 @@ const start = async() => {
     }
 }
 
-start()
+start();

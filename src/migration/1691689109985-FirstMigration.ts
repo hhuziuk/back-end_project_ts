@@ -10,7 +10,7 @@ export class FirstMigration1691689109985 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        // await queryRunner.query(`ALTER TABLE "User" DROP COLUMN "role";`);
+         await queryRunner.query(`ALTER TABLE "User" DROP COLUMN "role";`);
     }
 
 }

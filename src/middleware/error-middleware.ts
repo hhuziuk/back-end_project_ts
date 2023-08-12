@@ -1,8 +1,8 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request } from "express";
 import logger from "../utils/logger";
 import ApiError from '../exceptions/api-error';
 
-export default function (error, req: Request, res: Response, next: NextFunction)  {
+export default function (error, req: Request, res: Response)  {
     logger.error(error);
     logger.info(error)
     if (error instanceof ApiError) {

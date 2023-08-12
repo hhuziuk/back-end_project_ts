@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer'
-import logger from "../utils/logger";
 class MailService{
     private transporter: nodemailer.Transporter;
 

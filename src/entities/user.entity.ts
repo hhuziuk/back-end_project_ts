@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, ObjectType} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 import {
     IsEmail,
     MaxLength,
