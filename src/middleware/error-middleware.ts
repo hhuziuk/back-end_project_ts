@@ -1,10 +1,7 @@
-import { Response, Request } from "express";
-import logger from "../utils/logger";
+import {Response, Request, NextFunction} from "express";
 import ApiError from '../exceptions/api-error';
 
-export default function (error, req: Request, res: Response)  {
-    logger.error(error);
-    logger.info(error)
+export default function (error, req: Request, res: Response, next: NextFunction)  {
     if (error instanceof ApiError) {
         return res.status(error.status).json({message: error.message, errors: error.errors})
     }

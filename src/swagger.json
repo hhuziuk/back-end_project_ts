@@ -1,0 +1,225 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "REST API for Swagger Documentation",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "http://localhost:3008/" }],
+  "paths": {
+    "/registration": {
+      "post": {
+        "tags": ["default"],
+        "summary": "user registration",
+        "description": "get some data from user and create his \"profile\" in database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleSchemaHeader"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleSchemaBody"
+                }
+              }
+            }
+          },
+          "400": { "description": "User with the same email already exists" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["default"],
+        "summary": "user login",
+        "description": "get some data from user and login him in database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleSchemaHeader"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleSchemaBody"
+                }
+              }
+            }
+          },
+          "400": { "description": "activation link is not correct" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": ["default"],
+        "summary": "user logout",
+        "description": "get some data from user and create his \"profile\" in database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleSchemaHeader"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/activate/:link": {
+      "get": {
+        "tags": ["default"],
+        "summary": "link activation",
+        "description": "it sends a activation link on your email to confirm you as a real user"
+      }
+    },
+    "/refresh": {
+      "get": {
+        "tags": ["default"],
+        "summary": "token refresh",
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "description": "Bearer access_token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "jwt"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleSchemaBody"
+                }
+              }
+            }
+          },
+          "401": { "description": "User is not authorized" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },"/users": {
+      "get": {
+        "tags": ["default"],
+        "summary": "list with users",
+        "description": "it returns a list with users and all their data, you have to be an admin to get permission to these records",
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "description": "Bearer access_token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "jwt"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleSchemaBody"
+                }
+              }
+            }
+          },
+          "403": { "description": "Access denied" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ExampleSchemaBody": {
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MzllYjFiLTg0ZmYtNDQwOS1hMjlmLWMxYmUxODljZGU4ZCIsInVzZXJuYW1lIjoic2Fh0LDQstGW0LDRltCyYTJkIiwiZW1haWwiOiLRg9C60YNAZ21haWwuY29tIiwicm9sZSI6Ik1PREVSQVRPUiIsImlzQWN0aXZhdGVkIjpmYWxzZSwiaWF0IjoxNjkxOTIzMzI2LCJleHAiOjE2OTE5MjY5MjZ9.kAfXxsY9tXDQjp63QvFiCSmx0GUwOz5VcYcIwhMaJy8"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1MzllYjFiLTg0ZmYtNDQwOS1hMjlmLWMxYmUxODljZGU4ZCIsInVzZXJuYW1lIjoic2Fh0LDQstGW0LDRltCyYTJkIiwiZW1haWwiOiLRg9C60YNAZ21haWwuY29tIiwicm9sZSI6Ik1PREVSQVRPUiIsImlzQWN0aXZhdGVkIjpmYWxzZSwiaWF0IjoxNjkxOTIzMzI2LCJleHAiOjE2OTQ1MTUzMjZ9.QzvUeQKEz6rs2L2CjVxyF4JvTD6IDULdCTSa4sFNNXc"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "0539eb1b-84ff-4409-a29f-c1be189cde8d"
+              },
+              "username": {
+                "type": "string",
+                "example": "borisblade"
+              },
+              "email": {
+                "type": "string",
+                "example": "youremail@mail.com"
+              },
+              "role": {
+                "type": "string",
+                "example": "USER"
+              },
+              "isActivated": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "ExampleSchemaHeader": {
+        "required": ["text"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "youremail@mail.com"
+          },
+          "username": {
+            "type": "string",
+            "example": "borisblade"
+          },
+          "password": {
+            "type": "string",
+            "example": "tooweak"
+          }
+        }
+      }
+    }
+  }
+
+}

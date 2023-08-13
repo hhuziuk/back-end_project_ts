@@ -1,4 +1,13 @@
-FROM ubuntu:latest
-LABEL authors="georgijguzuk"
+FROM node:latest
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+COPY ./build ./build
+
+CMD ["npm", "run", "start:dev"]
