@@ -20,7 +20,7 @@ class UserService {
 
         const user = await userRepository.create({email, username, password: hashPassword, activationLink, role})
         await userRepository.save(user)
-        await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`)
+        await mailService.sendActivationMail(email, `${process.env.API_URL}api/user/activate/${activationLink}`)
 
         const userDto = new UserDto(user) // id, email, role, isActivated
         const tokens = tokenService.generateTokens({...userDto})
