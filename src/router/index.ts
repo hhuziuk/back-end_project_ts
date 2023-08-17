@@ -1,14 +1,13 @@
 import express, {RequestHandler} from 'express';
-import userController from "../controllers/user-controller";
-import authMiddleware from "../middleware/auth-middleware";
-import roleMiddleware from "../middleware/role-middleware";
+import userRouter from "./user-router";
+import bookRouter from "./book-router";
+import publisherRouter from "./publisher-router";
+import typeRouter from "./type-router";
 const router = express.Router();
 
-router.post('/registration', userController.registration)
-router.post('/login', userController.login)
-router.post('/logout', userController.logout)
-router.get('/activate/:link', userController.activate)
-router.get('/refresh', userController.refresh)
-router.get('/users', authMiddleware as RequestHandler, roleMiddleware('ADMIN'), userController.getUsers)
+router.use('/user', userRouter)
+router.use('/book',  bookRouter)
+router.use('/publisher', publisherRouter)
+router.use('/type', typeRouter)
 
 export default router

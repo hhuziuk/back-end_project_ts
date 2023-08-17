@@ -1,15 +1,15 @@
 import {Response, Request, NextFunction} from "express";
 import UserService from "../services/user-service";
-import userService from "../services/user-service";
 import {User} from "../entities/user.entity";
 import { validate } from 'class-validator';
 import ApiError from "../exceptions/api-error";
 import {plainToClass} from "class-transformer";
+import logger from "../utils/logger";
 class UserController{
     async registration(req: Request, res: Response, next: NextFunction){
         try{
             const {email, username, password, role} = req.body
-            const user = plainToClass(User, { email, username, password , role})
+            const user = plainToClass(User, { email, username, password, role})
             const errors = await validate(user)
             if (errors.length > 0) {
                 return next(ApiError.BadRequest('validation error', errors))
@@ -19,6 +19,7 @@ class UserController{
             return res.json(userData)
         } catch(e){
             next(e);
+            logger.error(e)
         }
     }
     async login(req: Request, res: Response, next: NextFunction){
@@ -49,7 +50,7 @@ class UserController{
     async activate(req: Request, res: Response, next: NextFunction){
         try{
             const activationLink = req.params.link;
-            await userService.activate(activationLink);
+            await UserService.activate(activationLink);
             return res.redirect(process.env.CLIENT_URL)
         } catch(e){
             next(e);
@@ -67,7 +68,7 @@ class UserController{
     }
     async getUsers(req: Request, res: Response, next: NextFunction){
         try{
-            const users = await userService.getUsers();
+            const users = await UserService.getUsers();
             return res.json(users);
         } catch(e){
             next(e);

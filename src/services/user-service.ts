@@ -6,7 +6,6 @@ import {v4} from 'uuid'
 import mailService from "./mail-service"
 import tokenService from "./token-service";
 import ApiError from "../exceptions/api-error";
-import logger from "../utils/logger";
 
 const userRepository = PostgresDataSource.getRepository(User);
 
@@ -16,7 +15,6 @@ class UserService {
         if (candidate) {
             throw ApiError.BadRequest(`User with the same ${email} already exists`)
         }
-        logger.info(candidate)
         const hashPassword = await bcrypt.hash(password, 8)
         const activationLink = v4()
 

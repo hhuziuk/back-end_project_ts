@@ -1,21 +1,22 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from "typeorm";
 import {
     IsEmail,
     MaxLength,
     MinLength
 } from "class-validator"
+import {Wishlist} from "./wishlist.entity";
 
 
 @Entity('User')
 export class User {
-    @PrimaryGeneratedColumn("uuid")
-    public id: string;
+    @PrimaryGeneratedColumn()
+    public id: number;
 
     @Column({nullable: false, unique: true})
     @MinLength(1, {
         message: 'username is too short',
     })
-    @MaxLength(15, {
+    @MaxLength(50, {
         message: 'username is too long',
     })
     public username: string;
@@ -24,7 +25,7 @@ export class User {
     @MinLength(4, {
         message: 'password is too short',
     })
-    @MaxLength(15, {
+    @MaxLength(50, {
         message: 'password is too long',
     })
     public password: string;
@@ -39,6 +40,9 @@ export class User {
     @Column()
     public activationLink: string;
 
-    @Column({nullable: false})
+    @Column({ default: "USER" })
     public role: string;
+
+    @OneToOne(() => Wishlist)
+    wishlist: Wishlist;
 }
