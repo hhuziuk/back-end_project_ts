@@ -4,12 +4,52 @@
     "title": "REST API for Swagger Documentation",
     "version": "1.0.0"
   },
-  "servers": [{ "url": "http://localhost:3008/" }],
+  "servers": [
+    {
+      "url": "http://localhost:3008/"
+    }
+  ],
   "paths": {
-    "/registration": {
+    "/api/user/registration": {
       "post": {
-        "tags": ["default"],
+        "tags": [
+          "User"
+        ],
         "summary": "user registration",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "description": "get some data from user and create his \"profile\" in database",
         "requestBody": {
           "required": true,
@@ -32,15 +72,47 @@
               }
             }
           },
-          "400": { "description": "User with the same email already exists" },
-          "500": { "description": "Internal server error" }
+          "400": {
+            "description": "User with the same email already exists"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         }
       }
     },
-    "/login": {
+    "/api/user/login": {
       "post": {
-        "tags": ["default"],
+        "tags": [
+          "User"
+        ],
         "summary": "user login",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "description": "get some data from user and login him in database",
         "requestBody": {
           "required": true,
@@ -63,15 +135,31 @@
               }
             }
           },
-          "400": { "description": "activation link is not correct" },
-          "500": { "description": "Internal server error" }
+          "400": {
+            "description": "activation link is not correct"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         }
       }
     },
-    "/logout": {
+    "/api/user/logout": {
       "post": {
-        "tags": ["default"],
+        "tags": [
+          "User"
+        ],
         "summary": "user logout",
+        "parameters": [
+          {
+            "name": "refreshToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "description": "get some data from user and create his \"profile\" in database",
         "requestBody": {
           "required": true,
@@ -87,20 +175,36 @@
           "200": {
             "description": "OK"
           },
-          "500": { "description": "Internal server error" }
+          "500": {
+            "description": "Internal server error"
+          }
         }
       }
     },
-    "/activate/:link": {
+    "/api/user/activate/:link": {
       "get": {
-        "tags": ["default"],
+        "tags": [
+          "User"
+        ],
         "summary": "link activation",
+        "parameters": [
+          {
+            "name": "activationLink",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "description": "it sends a activation link on your email to confirm you as a real user"
       }
     },
-    "/refresh": {
+    "/api/user/refresh": {
       "get": {
-        "tags": ["default"],
+        "tags": [
+          "User"
+        ],
         "summary": "token refresh",
         "parameters": [
           {
@@ -125,13 +229,20 @@
               }
             }
           },
-          "401": { "description": "User is not authorized" },
-          "500": { "description": "Internal server error" }
+          "401": {
+            "description": "User is not authorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         }
       }
-    },"/users": {
+    },
+    "/api/user/users": {
       "get": {
-        "tags": ["default"],
+        "tags": [
+          "User"
+        ],
         "summary": "list with users",
         "description": "it returns a list with users and all their data, you have to be an admin to get permission to these records",
         "parameters": [
@@ -157,11 +268,567 @@
               }
             }
           },
-          "403": { "description": "Access denied" },
-          "500": { "description": "Internal server error" }
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/book/add": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "adding book to database",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ISBN",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "typeId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "publisherId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "description": "Returns a list of books with all their data. Requires authorization.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The same book already exists"
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/book/:id": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "getting book via id from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "description": "Returns an object with all data about book",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/book/": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "getting list with books from database",
+        "description": "Returns an object with all data about books in database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "books": [
+                    {
+                      "id": 2,
+                      "name": "Animal Farm",
+                      "author": "George Orwell",
+                      "description": "75th Anniversary Edition—Includes a New Introduction by Téa Obreht",
+                      "file": "d5aea02c-163e-4365-a575-c2ebc57a2e40.pdf",
+                      "ISBN": "9780451526342",
+                      "typeId": 5,
+                      "publisherId": 3
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/book/delete/:id": {
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "deleting book via id from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "description": "Returns an object with all data about book",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "type": {
+
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/publisher/add": {
+      "post": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "addind object with id and publisher to database",
+        "description": "Adds an object with id and publisher to database",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "Prosvita",
+                  "id": 6
+                }
+
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/publisher/": {
+      "get": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "getting list of objects with id and publisher from database",
+        "description": "Returns a list of objects with id and publisher from database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 3,
+                    "name": "Elite Minds Inc"
+                  },
+                  {
+                    "id": 4,
+                    "name": "DTI"
+                  },
+                  {
+                    "id": 5,
+                    "name": "Mass Market Paperback"
+                  },
+                  {
+                    "id": 6,
+                    "name": "Prosvita"
+                  }
+                ]
+
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/publisher/:id": {
+      "get": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "getting object with id and publisher from database",
+        "description": "Returns an object with id and publisher from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 6,
+                    "name": "Prosvita"
+                  }
+                ]
+
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/publisher/delete/:id": {
+      "delete": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "deleting publisher via id from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "description": "Returns an object with all data about publisher",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "type": {
+
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/type/add": {
+      "post": {
+        "tags": [
+          "Type"
+        ],
+        "summary": "addind object with id and type to database",
+        "description": "Adds an object with id and type to database",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example":
+                {
+                  "id": 2,
+                  "name": "Biography"
+                }
+
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+    "/api/type/": {
+      "get": {
+        "tags": [
+          "Type"
+        ],
+        "summary": "getting list of objects with id and type from database",
+        "description": "Returns a list of objects with id and type from database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "name": "History"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Biography"
+                  },
+                  {
+                    "id": 3,
+                    "name": "Mass Market Paperback"
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+
+    "/api/type/:id": {
+      "get": {
+        "tags": [
+          "Type"
+        ],
+        "summary": "getting object with id and type from database",
+        "description": "Returns an object with id and type from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 2,
+                    "name": "Biography"
+                  }
+                ]
+
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+
+    "/api/type/delete/:id": {
+      "delete": {
+        "tags": [
+          "Type"
+        ],
+        "summary": "deleting book's type via id from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "description": "Returns an object with all data about book's type",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "type": {
+
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User is not authorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         }
       }
     }
+
+
+
   },
   "components": {
     "schemas": {
@@ -203,7 +870,9 @@
         }
       },
       "ExampleSchemaHeader": {
-        "required": ["text"],
+        "required": [
+          "text"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -218,8 +887,41 @@
             "example": "tooweak"
           }
         }
+      },
+      "BookDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Animal Farm"
+          },
+          "author": {
+            "type": "string",
+            "example": "George Orwell"
+          },
+          "description": {
+            "type": "string",
+            "example": "75th Anniversary Edition—Includes a New Introduction by Téa Obreht"
+          },
+          "file": {
+            "type": "string",
+            "example": "d5aea02c-163e-4365-a575-c2ebc57a2e40.pdf"
+          },
+          "ISBN": {
+            "type": "string",
+            "example": "9780451526342"
+          },
+          "typeId": {
+            "type": "string",
+            "example": "5"
+          },
+          "publisherId": {
+            "type": "string",
+            "example": "3"
+          }
+        }
       }
     }
   }
-
 }
+
