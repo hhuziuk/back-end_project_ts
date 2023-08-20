@@ -33,19 +33,15 @@ class BookService{
             throw ApiError.BadRequest(`No id was provided`)
         }
         const book = bookRepository.findOneBy({id})
-        return {
-            book
-        }
+        return book;
     }
 
     async delete (id: number){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
-        const type = bookRepository.delete({id})
-        return {
-            type
-        }
+        const book = bookRepository.delete({id})
+        return {book}
     }
 
 }

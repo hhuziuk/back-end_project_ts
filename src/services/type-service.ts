@@ -23,9 +23,8 @@ class TypeService{
             throw ApiError.BadRequest(`No id was provided`)
         }
         const type = typeRepository.findOneBy({id})
-        return {
-            type
-        }
+        return type
+
     }
 
     async delete (id: number){
@@ -33,9 +32,7 @@ class TypeService{
             throw ApiError.BadRequest(`No id was provided`)
         }
         const type = typeRepository.delete({id})
-        return {
-            type
-        }
+        return {type}
     }
 
 }

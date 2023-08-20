@@ -16,16 +16,14 @@ class PublisherService{
     }
     async getAll (){
         const publishers = await publisherRepository.find()
-        return publishers;
+        return {publishers};
     }
     async getOne (id: number){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
         const publisher = publisherRepository.findOneBy({id})
-        return {
-            publisher
-        }
+        return publisher
     }
 
     async delete (id: number){
@@ -33,9 +31,7 @@ class PublisherService{
             throw ApiError.BadRequest(`No id was provided`)
         }
         const publisher = publisherRepository.delete({id})
-        return {
-            publisher
-        }
+        return {publisher}
     }
 
 }

@@ -41,8 +41,8 @@ class BookController{
 
     async getOne(req: Request, res: Response, next: NextFunction){
         try{
-            const {id} = req.body;
-            const book = await BookService.getOne(id)
+            const {id} = req.params
+            const book = await BookService.getOne(parseInt(id, 10))
             return res.json(book)
         } catch(e){
             next(e);

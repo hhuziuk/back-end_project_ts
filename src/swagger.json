@@ -136,7 +136,7 @@
             }
           },
           "400": {
-            "description": "activation link is not correct"
+            "description": "user data is not correct"
           },
           "500": {
             "description": "Internal server error"

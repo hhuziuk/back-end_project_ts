@@ -31,8 +31,8 @@ class PublisherController{
 
     async getOne(req: Request, res: Response, next: NextFunction){
         try{
-            const {id} = req.body;
-            const publisher = await PublisherService.getOne(id)
+            const {id} = req.params
+            const publisher = await PublisherService.getOne(parseInt(id, 10))
             return res.json(publisher)
         } catch(e){
             next(e);

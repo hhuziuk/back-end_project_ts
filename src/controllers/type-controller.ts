@@ -31,8 +31,8 @@ class TypeController{
 
     async getOne(req: Request, res: Response, next: NextFunction){
         try{
-            const {id} = req.body;
-            const type = await TypeService.getOne(id)
+            const {id} = req.params
+            const type = await TypeService.getOne(parseInt(id, 10))
             return res.json(type)
         } catch(e){
             next(e);
