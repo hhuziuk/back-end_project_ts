@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-# Book collection application
+# Book collection backend application
 
 
 <!-- TABLE OF CONTENTS -->
