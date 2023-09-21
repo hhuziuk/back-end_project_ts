@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-# Library book collection application project
+# Book collection application
 
 
 <!-- TABLE OF CONTENTS -->
